@@ -37,12 +37,12 @@ module.exports = (className, privateRoute) => {
   function addRoutesToFile(filePath) {
     // Checar se o arquivo existe
     if (!fs.existsSync(filePath)) {
-      console.error('Arquivo não encontrado:', filePath)
+      console.error('File not found:', filePath)
       return
     }
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
-        console.error('Erro ao ler o arquivo:', err)
+        console.error('Error reading file:', err)
         return
       }
       // Adicionando novas rotas ao método factoryRoutes
@@ -75,9 +75,9 @@ module.exports = (className, privateRoute) => {
       // Salvando as alterações de volta no arquivo
       fs.writeFile(filePath, newLines.join('\n'), (err) => {
         if (err) {
-          console.error('Erro ao escrever no arquivo:', err)
+          console.error('Error writing to file:', err)
         } else {
-          console.log('Novas rotas adicionadas com sucesso!')
+          console.log('New routes added successfully!')
         }
       })
     })

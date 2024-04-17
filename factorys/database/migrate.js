@@ -1,15 +1,16 @@
+require('dotenv').config()
 const fastify = require('fastify')()
 const fs = require('fs')
 const path = require('path')
-const dataBase = 'wp_auth'
-require('dotenv').config()
+
+const dataBase = process.env.DATABASE
 
 fastify.register(require('@fastify/mysql'), {
   promise: true,
   connectionString: process.env.MYSQL_CONNECTION_STRING,
 })
 
-const migrationsDir = path.join(__dirname, 'migrations')
+const migrationsDir = path.join(__dirname, '../../database/migrations')
 
 async function applyMigration(fileName) {
   const filePath = path.join(migrationsDir, fileName)
@@ -24,7 +25,7 @@ async function applyMigration(fileName) {
 }
 
 async function migrate() {
-  await fastify.mysql.query('CREATE DATABASE IF NOT EXISTS wp_auth')
+  await fastify.mysql.query(`CREATE DATABASE IF NOT EXISTS ${dataBase}`)
   await fastify.mysql.query(`USE ${dataBase}`)
   await fastify.mysql.query(
     'CREATE TABLE IF NOT EXISTS migrations (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)'

@@ -10,7 +10,7 @@ declare module 'fastify' {
 
 class FastifyApp {
   private static _instance: FastifyApp
-  private _database = 'wp_auth'
+  private _database = process.env.DATABASE
   public server: FastifyInstance
   public mysql: MySQLPromisePool
 

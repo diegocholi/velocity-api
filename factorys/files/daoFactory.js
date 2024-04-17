@@ -22,9 +22,9 @@ export default ${className}DAO.instance
   // Criando os arquivos
   fs.writeFile(daoFilePath, daoContent, (err) => {
     if (err) {
-      console.error('Ocorreu um erro ao criar o arquivo:', err)
+      console.error('An error occurred while creating the file:', err)
     } else {
-      console.log('Arquivo DAO criado com sucesso!')
+      console.log('DAO file created successfully!')
     }
   })
 }

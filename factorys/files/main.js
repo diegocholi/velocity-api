@@ -1,27 +1,34 @@
 const daoFactory = require('./daoFactory')
 const controllerFactory = require('./controllerFactory')
 const routesFactory = require('./routesFactory')
+const { close, question } = require('../utils/consoleQuestion')
 
-const className = process.argv[2]
-if (!className) {
-  console.error('Faltou parâmetro com o nome das classes')
-  process.exit(0)
-}
-
-const tableName = process.argv[3]
-if (!tableName) {
-  console.error('Faltou parâmetro com o nome da tabela do banco de dados')
-  process.exit(0)
-}
-
-let privateRoute = false
-for (let index = 0; index < process.argv.length; index++) {
-  const args = process.argv[index]
-  if (args === 'private') {
-    privateRoute = true
+async function main() {
+  const className = await question('What is the class name? ')
+  if (!className) {
+    console.error('Missing parameter with class name')
+    process.exit(0)
   }
+
+  const tableName = await question('What is the name of the database table? ')
+  if (!tableName) {
+    console.error('Missing parameter with the name of the database table')
+    process.exit(0)
+  }
+
+  const answerCreateRoutes = await question(
+    'Do you want to create routes? (y/n) '
+  )
+
+  if (answerCreateRoutes.toLowerCase() === 'y') {
+    const answerIsPrivateRoute = await question('Is the route private? (y/n) ')
+    const isPrivateRoute = answerIsPrivateRoute.toLowerCase() === 'y'
+    routesFactory(className, isPrivateRoute)
+  }
+
+  daoFactory(className, tableName)
+  controllerFactory(className)
+  close()
 }
 
-daoFactory(className, tableName)
-controllerFactory(className)
-routesFactory(className, privateRoute)
+main()

@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 
 // Obtém a data e hora atuais
 const now = new Date()
@@ -17,7 +18,8 @@ const nomeArquivo = `${timestamp}-${param}.sql`
 
 // Função para criar o arquivo SQL vazio
 function createSQLFile() {
-  fs.writeFile('./database/migrations/' + nomeArquivo, '', (err) => {
+  const migrationsDir = path.join(__dirname, '../../database/migrations')
+  fs.writeFile(`${migrationsDir}/` + nomeArquivo, '', (err) => {
     if (err) throw err
     console.log(`Arquivo SQL criado com sucesso: ${nomeArquivo}`)
   })

@@ -3,6 +3,7 @@ import { Insert, Options, Update } from '../interfaces/IBaseDAO'
 
 class BaseController {
   private dao: any
+  private messagesResponse = {}
 
   constructor(dao: any) {
     this.dao = dao
@@ -23,7 +24,7 @@ class BaseController {
       where: [{ column: 'id', operator: '=', value: id }],
     }
     const response: any = await this.dao.select(options)
-
+    if (!response[0]) return reply.code(204).send()
     return reply.code(200).send(response[0])
   }
 
@@ -68,7 +69,7 @@ class BaseController {
     }
 
     const response = await this.dao.select(options)
-
+    if (!response[0]) return reply.code(204).send()
     return reply.code(200).send(response)
   }
 
@@ -87,7 +88,6 @@ class BaseController {
     }
 
     const response = await this.dao.insert({ insert: insert })
-
     return reply.code(201).send(response)
   }
 
@@ -112,7 +112,6 @@ class BaseController {
     }
 
     const response = await this.dao.update({ update: update })
-
     return reply.code(200).send(response)
   }
 
@@ -127,7 +126,6 @@ class BaseController {
       where: [{ column: 'id', operator: '=', value: id }],
     }
     const response: any = await this.dao.delete(options)
-
     return reply.code(200).send(response)
   }
 }
