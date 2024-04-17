@@ -1,5 +1,5 @@
 import FastifyApp from './singleton/FastifyApp'
-import factoryRoutes from './routes/factory/router'
+import factoryRoutes from './routes/core/router'
 
 async function main() {
   const app = await FastifyApp.instance()

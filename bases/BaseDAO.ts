@@ -1,5 +1,5 @@
 import { MySQLPromisePool } from '@fastify/mysql'
-import FastifyApp from '../../singleton/FastifyApp'
+import FastifyApp from '../singleton/FastifyApp'
 import {
   Where,
   Insert,

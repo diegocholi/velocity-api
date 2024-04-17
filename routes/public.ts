@@ -1,4 +1,4 @@
-import { IRoute } from '../src/interfaces/IRoute'
+import { IRoute } from '../interfaces/IRoute'
 
 export default [
   // Public routes

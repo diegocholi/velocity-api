@@ -2,7 +2,7 @@ module.exports = (className) => {
   const fs = require('fs')
   const path = require('path')
   const controllerContent = `import ${className}DAO from '../dao/${className}DAO'
-import BaseController from '../bases/BaseController'
+import BaseController from '../../bases/BaseController'
 
 class ${className}Controller extends BaseController {
   private static _instance: ${className}Controller = new ${className}Controller()

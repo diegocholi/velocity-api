@@ -1,7 +1,7 @@
 module.exports = (className, tableName) => {
   const fs = require('fs')
   const path = require('path')
-  const daoContent = `import BaseDAO from '../bases/BaseDAO'
+  const daoContent = `import BaseDAO from '../../bases/BaseDAO'
 
 class ${className}DAO extends BaseDAO {
   private static _instance: ${className}DAO = new ${className}DAO()
