@@ -14,14 +14,14 @@ class BaseDAO {
     this.table = table
   }
 
-  public async select(
+  public async select<T>(
     options: Options = {
       columns: undefined,
       where: undefined,
       pageSize: undefined,
       page: undefined,
     }
-  ): Promise<object> {
+  ): Promise<T[]> {
     const columns = options.columns ?? ['*']
     const where = options.where ?? []
     const pageSize = options.pageSize ?? 30
@@ -34,7 +34,7 @@ class BaseDAO {
       const sql = `SELECT ${columnsFactory} FROM ${this.table} ${whereFactory} LIMIT ${pageSize} OFFSET ${page}`
 
       const [result] = await connection.query(sql, whereValues)
-      return result
+      return result as T[]
     } catch (error: SQLError | any) {
       let message: string = error?.message
       if (
@@ -119,6 +119,16 @@ class BaseDAO {
       return result
     } catch (error: SQLError | any) {
       let message: string = error?.message
+      throw error
+    }
+  }
+
+  public async query<T>(sql: string, values?: any): Promise<T[]> {
+    const connection = await this.getConnection()
+    try {
+      const [result] = await connection.query(sql, values)
+      return result as T[]
+    } catch (error: SQLError | any) {
       throw error
     }
   }
