@@ -1,14 +1,6 @@
-require('dotenv').config()
-const fastify = require('fastify')()
 const fs = require('fs')
 const path = require('path')
-
-const dataBase = process.env.DATABASE
-
-fastify.register(require('@fastify/mysql'), {
-  promise: true,
-  connectionString: process.env.MYSQL_CONNECTION_STRING,
-})
+const { fastify, dataBase } = require('../utils/fastifyInstance')
 
 const migrationsDir = path.join(__dirname, '../../database/migrations')
 

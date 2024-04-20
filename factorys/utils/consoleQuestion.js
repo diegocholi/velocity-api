@@ -1,14 +1,10 @@
 const readline = require('readline')
+const getChalk = require('./chalk')
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 })
-
-async function getChalk() {
-  const chalk = await import('chalk')
-  return chalk.default
-}
 
 // Função para converter rl.question para promessa
 async function question(query) {

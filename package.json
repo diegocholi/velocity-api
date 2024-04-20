@@ -9,7 +9,8 @@
     "dev": "ts-node-dev index.ts",
     "migrate": "node ./factorys/database/migrate.js",
     "make:migration": "node ./factorys/database/migrationFactory.js",
-    "make:files": "node ./factorys/files/main.js"
+    "make:files": "node ./factorys/files/main.js",
+    "make:interface": "node ./factorys/interface/interface.js"
   },
   "keywords": [],
   "author": "",
