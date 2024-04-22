@@ -1,9 +1,9 @@
 import FastifyApp from './singleton/FastifyApp'
-import factoryRoutes from './routes/core/router'
+import bootstrap from './bootstrap/main'
 
 async function main() {
   const app = await FastifyApp.instance()
-  factoryRoutes(app)
+  bootstrap(app)
 
   app.server.listen({ port: 8080 }, (err, address) => {
     if (err) {

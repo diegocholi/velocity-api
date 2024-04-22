@@ -34,7 +34,48 @@ export default [
   // ${type} routes
 ] as IRoute[]`
 
+const daoTemplate = (
+  className,
+  tableName
+) => `import BaseDAO from '../../../bases/BaseDAO'
+
+class ${className}DAO extends BaseDAO {
+  private static _instance: ${className}DAO = new ${className}DAO()
+  public static get instance(): ${className}DAO {
+    return this._instance
+  }
+
+  private constructor() {
+    super('${tableName}')
+  }
+}
+
+export default ${className}DAO.instance
+`
+
+const controllerTemplate = (
+  className,
+  answerApiVersion
+) => `import ${className}DAO from '../../dao/v${answerApiVersion}/${className}DAO'
+import BaseController from '../../../bases/BaseController'
+
+class ${className}Controller extends BaseController {
+  private static _instance: ${className}Controller = new ${className}Controller()
+  public static get instance(): ${className}Controller {
+    return this._instance
+  }
+
+  private constructor() {
+    super(${className}DAO)
+  }
+}
+
+export default ${className}Controller.instance
+`
+
 module.exports = {
   fileRouteTemplate,
   routesTemplate,
+  daoTemplate,
+  controllerTemplate,
 }

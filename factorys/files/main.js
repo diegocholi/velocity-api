@@ -7,7 +7,7 @@ const { close, question } = require('../utils/consoleQuestion')
 async function main() {
   const chalk = await getChalk()
 
-  let className = await question('What is the class name? ')
+  const className = await question('What is the class name? ')
   if (!className) {
     console.error(chalk.red('Missing parameter with class name'))
     process.exit(0)
@@ -32,7 +32,6 @@ async function main() {
     )
     if (!isNaN(answerApiVersion) && answerApiVersion) break
   }
-  className = `${className}V${answerApiVersion}` // Adicionar a versão ao nome da classe/arquivo
 
   if (answerCreateRoutes.toLowerCase() === 'y') {
     const routeName = await question('What is the name of the route? ')
@@ -46,8 +45,8 @@ async function main() {
     routesFactory(routeName, className, isPrivateRoute, answerApiVersion)
   }
 
-  daoFactory(className, tableName)
-  controllerFactory(className)
+  daoFactory(className, tableName, answerApiVersion)
+  controllerFactory(className, answerApiVersion)
   close()
 }
 

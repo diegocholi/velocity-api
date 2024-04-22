@@ -3,7 +3,7 @@ const path = require('path')
 const { fileRouteTemplate, routesTemplate } = require('./templates')
 
 // Função para garantir a criação do diretório e arquivos das rotas
-function ensureDirectoryExistence(filePath) {
+function ensureFilesRotes(filePath) {
   const dirname = path.dirname(filePath)
   if (
     fs.existsSync(dirname) &&
@@ -39,11 +39,11 @@ function ensureDirectoryExistence(filePath) {
       }
     })
 
-  ensureDirectoryExistence(filePath)
+  ensureFilesRotes(filePath)
 }
 
 // Função para ler o arquivo e adicionar as novas rotas
-function addRoutesToFile(filePath, routeName, className) {
+function addRoutesToFile(filePath, routeName, className, answerApiVersion) {
   // Checar se o arquivo existe
   if (!fs.existsSync(filePath)) {
     console.error('File not found:', filePath)
@@ -64,7 +64,7 @@ function addRoutesToFile(filePath, routeName, className) {
         newLines.splice(
           -2,
           0,
-          `import ${className}Controller from '../../src/controllers/${className}Controller'`
+          `import ${className}Controller from '../../src/controllers/v${answerApiVersion}/${className}Controller'`
         )
       }
 
@@ -92,4 +92,4 @@ function addRoutesToFile(filePath, routeName, className) {
   })
 }
 
-module.exports = { ensureDirectoryExistence, addRoutesToFile }
+module.exports = { ensureFilesRotes, addRoutesToFile }

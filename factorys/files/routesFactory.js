@@ -1,14 +1,22 @@
-module.exports = (routeName, className, privateRoute, version) => {
+module.exports = (routeName, className, privateRoute, answerApiVersion) => {
   const path = require('path')
-  const { ensureDirectoryExistence, addRoutesToFile } = require('./utils')
+  const { ensureFilesRotes, addRoutesToFile } = require('./utils')
 
   let filePath = ''
   if (privateRoute)
-    filePath = path.join(__dirname, `../../routes/v${version}/private.ts`)
-  else filePath = path.join(__dirname, `../../routes/v${version}/public.ts`)
-  // Garante que o diretório e o arquivo existem antes de escrever o arquivo
-  ensureDirectoryExistence(filePath)
+    filePath = path.join(
+      __dirname,
+      `../../routes/v${answerApiVersion}/private.ts`
+    )
+  else
+    filePath = path.join(
+      __dirname,
+      `../../routes/v${answerApiVersion}/public.ts`
+    )
+
+  // Garante que o diretório e os arquivos de rotas existem
+  ensureFilesRotes(filePath)
 
   // Chamando a função para modificar o arquivo
-  addRoutesToFile(filePath, routeName, className)
+  addRoutesToFile(filePath, routeName, className, answerApiVersion)
 }
