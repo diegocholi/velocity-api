@@ -21,10 +21,6 @@ async function main() {
     process.exit(0)
   }
 
-  const answerCreateRoutes = await question(
-    'Do you want to create routes? (y/n) '
-  )
-
   let answerApiVersion = undefined
   while (true) {
     answerApiVersion = await question(
@@ -32,6 +28,10 @@ async function main() {
     )
     if (!isNaN(answerApiVersion) && answerApiVersion) break
   }
+
+  const answerCreateRoutes = await question(
+    'Do you want to create routes? (y/n) '
+  )
 
   if (answerCreateRoutes.toLowerCase() === 'y') {
     const routeName = await question('What is the name of the route? ')
