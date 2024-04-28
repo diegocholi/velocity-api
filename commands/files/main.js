@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const daoFactory = require('./daoFactory')
 const controllerFactory = require('./controllerFactory')
 const routesFactory = require('./routesFactory')

@@ -1,20 +1,30 @@
 {
   "name": "velocity-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API development framework designed to maximize developer productivity and efficiency",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "dev": "ts-node-dev index.ts",
-    "migrate": "node ./factorys/database/migrate.js",
-    "make:migration": "node ./factorys/database/migrationFactory.js",
-    "make:files": "node ./factorys/files/main.js",
-    "make:interface": "node ./factorys/interface/interface.js"
+    "migrate": "node ./commands/database/migrate.js",
+    "make:migration": "node ./commands/database/migrationFactory.js",
+    "make:files": "node ./commands/files/main.js",
+    "make:interface": "node ./commands/interface/interface.js"
   },
+  "bin": {
+    "migrate": "./commands/database/migrate.js",
+    "make:migration": "./commands/database/migrationFactory.js",
+    "make:files": "./commands/files/main.js",
+    "make:interface": "./commands/interface/interface.js"
+  },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Diego Choli Conceição",
+  "license": "MIT",
   "dependencies": {
     "@fastify/mysql": "^4.2.0",
     "dotenv": "^16.4.5",

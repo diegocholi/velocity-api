@@ -44,10 +44,12 @@ const mountRoutes = (
   )
 }
 
-export default async (app: FastifyApp) => {
+export default async () => {
+  const app = await FastifyApp.instance()
   const router: FastifyInstance = app.server
   const path = require('path')
   const fs = require('fs')
+
   const dir: string = path.join(__dirname, '../routes')
   const files: Array<string> = fs.readdirSync(dir)
   for (let index = 0; index < files.length; index++) {
@@ -60,5 +62,12 @@ export default async (app: FastifyApp) => {
       mountRoutes(privateRoute.default, router, dirRoutes, true)
     }
   }
+  app.server.listen({ port: 8080 }, (err, address) => {
+    if (err) {
+      console.error(err)
+      process.exit(1)
+    }
+    console.log(`Server listening at ${address}`)
+  })
   return
 }
