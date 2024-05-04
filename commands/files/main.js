@@ -36,15 +36,9 @@ async function main() {
   )
 
   if (answerCreateRoutes.toLowerCase() === 'y') {
-    const routeName = await question('What is the name of the route? ')
-    if (!routeName) {
-      console.error(chalk.red('Missing parameter with route name'))
-      process.exit(0)
-    }
-
     const answerIsPrivateRoute = await question('Is the route private? (y/n) ')
     const isPrivateRoute = answerIsPrivateRoute.toLowerCase() === 'y'
-    routesFactory(routeName, className, isPrivateRoute, answerApiVersion)
+    routesFactory(className, isPrivateRoute, answerApiVersion)
   }
 
   daoFactory(className, tableName, answerApiVersion)

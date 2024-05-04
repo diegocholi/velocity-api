@@ -43,7 +43,7 @@ function ensureFilesRotes(filePath) {
 }
 
 // Função para ler o arquivo e adicionar as novas rotas
-function addRoutesToFile(filePath, routeName, className, answerApiVersion) {
+function addRoutesToFile(filePath, className, answerApiVersion) {
   // Checar se o arquivo existe
   if (!fs.existsSync(filePath)) {
     console.error('File not found:', filePath)
@@ -76,7 +76,7 @@ function addRoutesToFile(filePath, routeName, className, answerApiVersion) {
       // Verificando se ainda estamos dentro do método e chegamos no final dele
       if (insideFactoryRoutes && line.includes('] as IRoute[]')) {
         // Adicionar as novas linhas antes da chave que fecha o método
-        newLines.splice(-1, 0, routesTemplate(routeName, className))
+        newLines.splice(-1, 0, routesTemplate(className))
         insideFactoryRoutes = false // Sair do método após adicionar as linhas
       }
     }

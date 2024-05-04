@@ -1,4 +1,4 @@
-module.exports = (routeName, className, privateRoute, answerApiVersion) => {
+module.exports = (className, privateRoute, answerApiVersion) => {
   const path = require('path')
   const { ensureFilesRotes, addRoutesToFile } = require('./utils')
 
@@ -18,5 +18,5 @@ module.exports = (routeName, className, privateRoute, answerApiVersion) => {
   ensureFilesRotes(filePath)
 
   // Chamando a função para modificar o arquivo
-  addRoutesToFile(filePath, routeName, className, answerApiVersion)
+  addRoutesToFile(filePath, className, answerApiVersion)
 }

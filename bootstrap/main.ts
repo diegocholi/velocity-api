@@ -25,6 +25,12 @@ const mountRoutes = (
               handler: route.handler,
             })
             break
+          case 'PUT':
+            router.put(route.route, {
+              preHandler: isPrivate ? authMiddleware : undefined,
+              handler: route.handler,
+            })
+            break
           case 'PATCH':
             router.patch(route.route, {
               preHandler: isPrivate ? authMiddleware : undefined,
