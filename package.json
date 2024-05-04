@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "types": "index.d.ts",
   "scripts": {
+    "test": "jest",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "dev": "ts-node-dev index.ts",
@@ -12,12 +13,6 @@
     "make:migration": "node ./commands/database/migrationFactory.js",
     "make:files": "node ./commands/files/main.js",
     "make:interface": "node ./commands/interface/interface.js"
-  },
-  "bin": {
-    "migrate": "./commands/database/migrate.js",
-    "make:migration": "./commands/database/migrationFactory.js",
-    "make:files": "./commands/files/main.js",
-    "make:interface": "./commands/interface/interface.js"
   },
   "files": [
     "dist"
@@ -31,8 +26,11 @@
     "fastify": "^4.26.2"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.12.7",
     "chalk": "^5.3.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   }

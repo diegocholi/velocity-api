@@ -10,7 +10,12 @@ declare module 'fastify' {
 
 class FastifyApp {
   private static _instance: FastifyApp
-  private _database = process.env.DATABASE
+  private DATABASE = process.env.DATABASE
+  private DB_USER = process.env.DB_USER
+  private DB_PASSWORD = process.env.DB_PASSWORD
+  private DB_HOST = process.env.DB_HOST
+  private DB_PORT = process.env.DB_PORT
+
   public server: FastifyInstance
   public mysql: MySQLPromisePool
 
@@ -22,8 +27,7 @@ class FastifyApp {
     try {
       await this.server.register(fastifyMySQL, {
         promise: true,
-        connectionString:
-          process.env.MYSQL_CONNECTION_STRING + `/${this._database}`,
+        connectionString: `mysql://${this.DB_USER}:${this.DB_PASSWORD}@${this.DB_HOST}:${this.DB_PORT}/${this.DATABASE}`,
       })
       this.mysql = this.server.mysql
       console.log('------ Initialized Server ------')
