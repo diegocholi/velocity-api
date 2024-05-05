@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-const daoFactory = require('./daoFactory')
-const controllerFactory = require('./controllerFactory')
-const routesFactory = require('./routesFactory')
-const getChalk = require('../utils/chalk')
-const { close, question } = require('../utils/consoleQuestion')
-
 async function main() {
+  const daoFactory = require('./daoFactory')
+  const controllerFactory = require('./controllerFactory')
+  const routesFactory = require('./routesFactory')
+  const testFactory = require('./testFactory')
+  const getChalk = require('../utils/chalk')
+  const { close, question } = require('../utils/consoleQuestion')
+
   const chalk = await getChalk()
 
   const className = await question('What is the class name? ')
@@ -43,6 +44,7 @@ async function main() {
 
   daoFactory(className, tableName, answerApiVersion)
   controllerFactory(className, answerApiVersion)
+  testFactory(className, answerApiVersion)
   close()
 }
 

@@ -7,11 +7,15 @@ const mountRoutes = (
   routes: IRoute[],
   router: FastifyInstance,
   version: string,
-  isPrivate: boolean = false
+  isPrivate: boolean = false,
+  testRoute: string | undefined = undefined
 ) => {
   router.register(
     async (router: FastifyInstance) => {
       routes.map((route) => {
+        if (testRoute && !`/${version}${route.route}`.includes(testRoute))
+          return
+
         switch (route.method) {
           case 'GET':
             router.get(route.route, {
@@ -50,7 +54,7 @@ const mountRoutes = (
   )
 }
 
-export default async () => {
+export default async (testRoute: string | undefined = undefined) => {
   const app = await FastifyApp.instance()
   const router: FastifyInstance = app.server
   const path = require('path')
@@ -64,8 +68,8 @@ export default async () => {
       const routesFiles: Array<string> = fs.readdirSync(`${dir}/${dirRoutes}`)
       const privateRoute = require(`${dir}/${dirRoutes}/${routesFiles[0]}`)
       const publicRoute = require(`${dir}/${dirRoutes}/${routesFiles[1]}`)
-      mountRoutes(publicRoute.default, router, dirRoutes)
-      mountRoutes(privateRoute.default, router, dirRoutes, true)
+      mountRoutes(publicRoute.default, router, dirRoutes, false, testRoute)
+      mountRoutes(privateRoute.default, router, dirRoutes, true, testRoute)
     }
   }
   app.server.listen({ port: 8080 }, (err, address) => {

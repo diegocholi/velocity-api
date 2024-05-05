@@ -12,7 +12,8 @@
     "migrate": "node ./commands/database/migrate.js",
     "make:migration": "node ./commands/database/migrationFactory.js",
     "make:files": "node ./commands/files/main.js",
-    "make:interface": "node ./commands/interface/interface.js"
+    "make:interface": "node ./commands/interface/interface.js",
+    "make:test": "node ./commands/test/makeTest.js"
   },
   "files": [
     "dist"

@@ -86,7 +86,7 @@ describe('${className}', () => {
 
   beforeAll(async () => {
     fastify = await FastifyApp.instance()
-    bootstrap()
+    bootstrap('/v${answerApiVersion}/${String(className).toLowerCase()}')
   })
 
   afterAll(() => {
@@ -97,8 +97,7 @@ describe('${className}', () => {
   className
 ).toLowerCase()}', async () => {
     const newItem = {
-      name: 'Insert test',
-      email: 'insert@test.com',
+      ...Your test data
     }
     const response: any = await fastify.server.inject({
       method: 'POST',
@@ -127,8 +126,7 @@ describe('${className}', () => {
   className
 ).toLowerCase()}/:id', async () => {
     const updatedItem = {
-      name: 'Update test',
-      email: 'update@test.com',
+      ...Your test data
     }
 
     const response: any = await fastify.server.inject({
